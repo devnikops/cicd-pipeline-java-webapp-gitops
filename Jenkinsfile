@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'QA'
+        label 'QA'          //jenkins-slave
     }
     
     environment {
@@ -33,7 +33,12 @@ pipeline {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'SSH_KEY_PATH', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
                         sshagent(['SSH_KEY_PATH']) {
-                            sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
+                            
+                            echo "Artifact Path: ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
+                            echo "Deployment Directory: ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
+                            echo "Deploying ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} to ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
+                            sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${DEPLOY_DIR} || exit 1"
+
                         }
                     }
                 }
