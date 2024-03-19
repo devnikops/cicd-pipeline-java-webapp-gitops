@@ -3,7 +3,7 @@ pipeline {
         label 'QA'          //jenkins-slave
     }
     tools {
-        label 'docker'
+        docker 'docker'
     }
     
     environment {
