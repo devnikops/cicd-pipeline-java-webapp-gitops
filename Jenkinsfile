@@ -31,8 +31,8 @@ pipeline {
         stage('Deploy Artifact') {
             steps {
                 script {
-                    withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'SSH_KEY_PATH', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
-                        sshagent(['SSH_KEY_PATH']) {
+                    withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'jenkins-slave', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
+                        sshagent(['jenkins-slave']) {
                             
                             echo "Artifact Path: ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
                             echo "Deployment Directory: ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
