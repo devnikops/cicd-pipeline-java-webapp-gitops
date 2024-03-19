@@ -32,14 +32,12 @@ pipeline {
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'jenkins-slave', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
-                        sshagent(['jenkins-slave']) {
-                            
+                        sshagent(['jenkins-slave']) {                           
                             echo "Artifact Path: ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
                             echo "Deployment Directory: ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
                             echo "Deploying ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} to ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
                             sh "ssh-keyscan -H 43.205.17.24 >> ~/.ssh/known_hosts"
                             sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${DEPLOY_DIR} || exit 1"
-
                         }
                     }
                 }
