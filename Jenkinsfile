@@ -13,7 +13,7 @@ pipeline {
         ARTIFACT_EXTENSION = 'war'
         DEPLOY_DIR = '/opt/tomcat/webapps'
 
-        APP_NAME = "Mylab"
+        APP_NAME = "mylab"
         RELEASE = "0.0.1"
         DOCKER_USER = "nikhil999999"
         DOCKER_PASS = 'docker-jenkins'
