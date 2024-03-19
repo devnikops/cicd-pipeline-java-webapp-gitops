@@ -18,7 +18,7 @@ pipeline {
         stage('Fetch Artifact') {
             steps {
                 script {
-                    def artifactUrl = "${NEXUS_URL}/repository/maven-releases/${ARTIFACT_NAME}/${ARTIFACT_VERSION}/${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
+                    def artifactUrl = "${NEXUS_URL}/repository/MyLab-RELEASE/com/mylab/${ARTIFACT_NAME}/${ARTIFACT_VERSION}/${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
                     def artifactFile = "${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
                     
                     withCredentials([usernamePassword(credentialsId: NEXUS_CREDENTIAL_ID, usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASSWORD')]) {
