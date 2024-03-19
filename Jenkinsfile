@@ -8,10 +8,17 @@ pipeline {
         NEXUS_CREDENTIAL_ID = 'nexus'
         HOST = '43.205.17.24'
         SSH_CREDENTIAL_ID = 'jenkins-slave'
-        ARTIFACT_VERSION = '0.0.1' // Update this with your artifact version
-        ARTIFACT_NAME = 'MyLab' // Update this with your artifact name
-        ARTIFACT_EXTENSION = 'war' // Update this with your artifact extension
+        ARTIFACT_VERSION = '0.0.1' 
+        ARTIFACT_NAME = 'MyLab' 
+        ARTIFACT_EXTENSION = 'war'
         DEPLOY_DIR = '/opt/tomcat/webapps'
+
+        APP_NAME = "Mylab"
+        RELEASE = "0.0.1"
+        DOCKER_USER = "nikhil999999"
+        DOCKER_PASS = 'docker-jenkins'
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
     
     stages {
@@ -43,5 +50,17 @@ pipeline {
                 }
             }
         }
+
+        stage("Build & Push Docker Image") {
+            steps {
+                script {
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')     
+                    }
+                }
+            }
+       }
     }
 }
