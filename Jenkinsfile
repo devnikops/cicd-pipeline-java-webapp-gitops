@@ -2,9 +2,6 @@ pipeline {
     agent {
         label 'QA'          //jenkins-slave
     }
-    tools {
-        docker 'docker'
-    }
     
     environment {
         NEXUS_URL = 'http://13.232.79.166:8081'
