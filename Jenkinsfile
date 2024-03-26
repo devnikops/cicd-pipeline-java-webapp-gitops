@@ -63,9 +63,10 @@ pipeline {
                         sh """
                             git config --global user.email "${GITHUB_USEREMAIL}"
                             git config --global user.name "${GITHUB_USERNAME}"
+                            git checkout -b main
                             git add *.war
                             git commit -m "Add *.war"
-                            git push origin master
+                            git push origin main
                         """
                     }
                 }
