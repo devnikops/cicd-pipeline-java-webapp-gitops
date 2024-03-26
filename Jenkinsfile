@@ -50,6 +50,7 @@ pipeline {
                             echo "Deploying ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} to ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
                             /* sh "ssh-keyscan -H 43.205.17.24 >> ~/.ssh/known_hosts" */
                             sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${DEPLOY_DIR} || exit 1"
+                            
                         }
                     }
                 }
@@ -63,11 +64,8 @@ pipeline {
                         sh """
                             git config --global user.email "${GITHUB_USEREMAIL}"
                             git config --global user.name "${GITHUB_USERNAME}"
-                            git clone https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
-                            cd ${GITHUB_REPO}
-                            mv ../${ARTIFACT_NAME} .
                             git add ${ARTIFACT_NAME}
-                            git commit -m "Add ${ARTIFACT_NAME}"
+                            git commit -m "Add ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
                             git push origin main
                         """
                     }
