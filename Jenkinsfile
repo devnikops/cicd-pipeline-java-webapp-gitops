@@ -59,7 +59,7 @@ pipeline {
         stage("Upload War to GitHub") {
             steps {
                 script {
-                    withCredentials([string(credentialsId: "${GITHUB_TOKEN}", variable: 'Jenkins-Github-token')]) {
+                    withCredentials([gitUsernamePassword(credentialsId: 'Jenkins-Github-token', gitToolName: 'Default')]) {
                         sh """
                             git config --global user.email "${GITHUB_USEREMAIL}"
                             git config --global user.name "${GITHUB_USERNAME}"
