@@ -13,6 +13,10 @@ pipeline {
         ARTIFACT_EXTENSION = 'war'
         DEPLOY_DIR = '/opt/tomcat/webapps'
 
+        GITHUB_REPO = 'cicd-pipeline-java-webapp-gitops'
+        GITHUB_USERNAME = 'devnikops'
+        GITHUB_TOKEN = credentials('Git-Github-token')
+        
         APP_NAME = "mylab"
         RELEASE = "0.0.1"
         DOCKER_USER = "nikhil999999"
@@ -35,7 +39,7 @@ pipeline {
             }
         }
         
-        stage('Deploy Artifact') {
+        stage('Deploy Artifact on QA System') {
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIAL_ID, keyFileVariable: 'jenkins-slave', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
@@ -51,7 +55,26 @@ pipeline {
             }
         }
 
-        stage("Build & Push Docker Image") {
+        stage("Upload War to GitHub") {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: "${GITHUB_TOKEN}", variable: 'Git-Github-token')]) {
+                        sh """
+                            git config --global user.email "${GITHUB_USERNAME}@users.noreply.github.com"
+                            git config --global user.name "${GITHUB_USERNAME}"
+                            git clone https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
+                            cd ${GITHUB_REPO}
+                            mv ../${ARTIFACT_NAME} .
+                            git add ${ARTIFACT_NAME}
+                            git commit -m "Add ${ARTIFACT_NAME}"
+                            git push origin main
+                        """
+                    }
+                }
+            }
+        }
+
+       /* stage("Build & Push Docker Image") {
             steps {
                 script {
                     docker.withRegistry('',DOCKER_PASS) {
@@ -61,6 +84,6 @@ pipeline {
                     }
                 }
             }
-       }
+       } */
     }
 }
