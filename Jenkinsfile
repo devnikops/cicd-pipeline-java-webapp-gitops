@@ -63,6 +63,9 @@ pipeline {
                         sh """
                             git config --global user.email "${GITHUB_USEREMAIL}"
                             git config --global user.name "${GITHUB_USERNAME}"
+                            git clone https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
+                            cd ${GITHUB_REPO}
+                            mv ../*.war .
                             git add *.war
                             git commit -m "Add *.war"
                             git push origin main
