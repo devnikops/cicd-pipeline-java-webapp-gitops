@@ -14,7 +14,7 @@ pipeline {
         DEPLOY_DIR = '/opt/tomcat/webapps'
 
         GITHUB_REPO = 'cicd-pipeline-java-webapp-gitops'
-        GITHUB_USERNAME = 'devnikops'
+        GITHUB_USERNAME = 'nikks.geeks@gmail.com'
         GITHUB_TOKEN = credentials('Git-Github-token')
         
         APP_NAME = "mylab"
