@@ -1,6 +1,11 @@
+# Use a base image with Tomcat pre-installed
 FROM tomcat:latest
 
-RUN cp -R  /usr/local/tomcat/webapps.dist/*  /usr/local/tomcat/webapps/
+# Copy the WAR file into the webapps directory of Tomcat
+COPY *.war /usr/local/tomcat/webapps/
 
-COPY /usr/local/tomcat/webapps/*.war /opt/tomcat/webapps/
+# Expose the default Tomcat port
+EXPOSE 8080
+
+
 
