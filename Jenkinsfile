@@ -65,7 +65,7 @@ pipeline {
                             git config --global user.name "${GITHUB_USERNAME}"
                             git add *.war
                             git commit -m "Add *.war"
-                            git push origin main
+                            git push origin master
                         """
                     }
                 }
