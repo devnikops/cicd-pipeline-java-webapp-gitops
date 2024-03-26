@@ -66,7 +66,7 @@ pipeline {
                             rm -rf cicd-pipeline-java-webapp-gitops
                             git clone https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
                             cd ${GITHUB_REPO}
-                            mv ../*.war .
+                            mv cicd-pipeline-java-webapp-gitops/*.war .
                             git add *.war
                             git commit -m "Add *.war"
                             git push origin main
