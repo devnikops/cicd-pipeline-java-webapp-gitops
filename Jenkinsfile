@@ -15,7 +15,8 @@ pipeline {
 
         GITHUB_REPO = 'cicd-pipeline-java-webapp-gitops'
         GITHUB_USERNAME = 'devnikops'
-        GITHUB_TOKEN = credentials('Git-Github-token')
+        GITHUB_USEREMAIL = 'nikks.geeks@gmail.com'
+        GITHUB_TOKEN = credentials('Jenkins-Github-token')
         
         APP_NAME = "mylab"
         RELEASE = "0.0.1"
@@ -47,7 +48,7 @@ pipeline {
                             echo "Artifact Path: ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION}"
                             echo "Deployment Directory: ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
                             echo "Deploying ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} to ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
-                            sh "ssh-keyscan -H 43.205.17.24 >> ~/.ssh/known_hosts"
+                            /* sh "ssh-keyscan -H 43.205.17.24 >> ~/.ssh/known_hosts" */
                             sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${DEPLOY_DIR} || exit 1"
                         }
                     }
@@ -58,9 +59,9 @@ pipeline {
         stage("Upload War to GitHub") {
             steps {
                 script {
-                    withCredentials([string(credentialsId: "${GITHUB_TOKEN}", variable: 'Git-Github-token')]) {
+                    withCredentials([string(credentialsId: "${GITHUB_TOKEN}", variable: 'Jenkins-Github-token')]) {
                         sh """
-                            git config --global user.email "${GITHUB_USERNAME}@users.noreply.github.com"
+                            git config --global user.email "${GITHUB_USEREMAIL}"
                             git config --global user.name "${GITHUB_USERNAME}"
                             git clone https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
                             cd ${GITHUB_REPO}
