@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-       /* stage("Upload War to GitHub") {
+       stage("Upload War to GitHub") {
             steps {
                 script {
                     withCredentials([gitUsernamePassword(credentialsId: 'Jenkins-Github-token', gitToolName: 'Default')]) {
@@ -74,7 +74,7 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
         stage("Build & Push Docker Image") {
             steps {
                 script {
