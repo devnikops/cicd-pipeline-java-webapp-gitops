@@ -67,7 +67,7 @@ pipeline {
                             git clone https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
                             cd ${GITHUB_REPO}
                             mv ../*.war .
-                            ll
+                            ls -l
                             git add *.war
                             git commit -m "Add *.war"
                             git push origin main
