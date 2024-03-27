@@ -12,6 +12,7 @@ pipeline {
         ARTIFACT_NAME = 'MyLab' 
         ARTIFACT_EXTENSION = 'war'
         DEPLOY_DIR = '/opt/jenkins/workspace/CD-job'
+        WEBAPP_DIR = '/opt/tomcat/webapps'
 
         GITHUB_REPO = 'cicd-pipeline-java-webapp-gitops'
         GITHUB_USERNAME = 'devnikops'
@@ -49,7 +50,8 @@ pipeline {
                             echo "Deployment Directory: ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
                             echo "Deploying ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} to ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
                             /* sh "ssh-keyscan -H 43.205.17.24 >> ~/.ssh/known_hosts" */
-                            sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${DEPLOY_DIR} || exit 1"                           
+                            sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${DEPLOY_DIR}"
+                            sh "scp ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${ARTIFACT_EXTENSION} ${SSH_USER}@${HOST}:${WEBAPP_DIR} || exit 1"                           
                         }
                     }
                 }
