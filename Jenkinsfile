@@ -68,6 +68,7 @@ pipeline {
                             cd ${GITHUB_REPO}
                             mv ../*.war .
                             ls -l
+                            pwd
                             git add *.war
                             git commit -m "Add *.war"
                             git push origin main
