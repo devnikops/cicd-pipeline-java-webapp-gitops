@@ -11,7 +11,7 @@ pipeline {
         ARTIFACT_VERSION = '0.0.1' 
         ARTIFACT_NAME = 'MyLab' 
         ARTIFACT_EXTENSION = 'war'
-        DEPLOY_DIR = '/opt/tomcat/webapps'
+        DEPLOY_DIR = '/opt/jenkins/workspace/CD-job'
 
         GITHUB_REPO = 'cicd-pipeline-java-webapp-gitops'
         GITHUB_USERNAME = 'devnikops'
