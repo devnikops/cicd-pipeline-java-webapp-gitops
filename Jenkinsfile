@@ -63,7 +63,7 @@ pipeline {
                         sh """
                             git config --global user.email "${GITHUB_USEREMAIL}"
                             git config --global user.name "${GITHUB_USERNAME}"
-                 
+                            rm -rf cicd-pipeline-java-webapp-gitops 
                             git clone https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
                             cd ${GITHUB_REPO}
                             mv *.war /opt/jenkins/workspace/CD-job
