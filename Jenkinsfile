@@ -69,7 +69,7 @@ pipeline {
                             git clone https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO}
                             cd ${GITHUB_REPO}
                             cp *.war /opt/jenkins/workspace/CD-job
-                            git add
+                            git add .
                             git commit -m "Add all"
                             git push origin main
                         """
